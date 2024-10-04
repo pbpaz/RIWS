@@ -1,2 +1,2 @@
-# IR
-Proyecto de la asignatura de recuperación de la información con Daniga y Diegón.
+# RIWS
+RIWS project about book searching and filtering
