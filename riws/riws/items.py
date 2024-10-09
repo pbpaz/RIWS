@@ -6,7 +6,7 @@
 import scrapy
 
 
-class IrItem(scrapy.Item):
+class RiwsItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
     pass
