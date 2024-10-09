@@ -6,7 +6,12 @@
 import scrapy
 
 
-class RiwsItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+class PazBookItem(scrapy.Item):
+    name = scrapy.Field()
+    author = scrapy.Field()
+    editorial = scrapy.Field()
+    edition_date = scrapy.Field()
+    category = scrapy.Field()
+    isbn = scrapy.Field()
+    pages = scrapy.Field()
+    synopsis = scrapy.Field()

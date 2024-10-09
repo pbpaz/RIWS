@@ -8,6 +8,26 @@
 from itemadapter import ItemAdapter
 
 
-class RiwsPipeline:
+import json
+
+class JsonWriterPipeline:
+    def open_spider(self, spider):
+        # Abrir un archivo para escribir en modo de escritura cuando el spider se inicie
+        self.file = open('books_data.json', 'w')
+        self.file.write('[')
+        self.first_item = True
+
+    def close_spider(self, spider):
+        # Cerrar el archivo cuando el spider se cierre
+        self.file.write(']\n')  # Escribir el final del array JSON
+        self.file.close()
+
     def process_item(self, item, spider):
+        # Convierte el item en una cadena JSON
+        if not self.first_item:
+            self.file.write(',\n')
+        self.first_item = False
+        line = json.dumps(dict(item), indent=4)
+        self.file.write(line)
         return item
+
