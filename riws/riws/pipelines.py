@@ -13,7 +13,7 @@ import json
 class JsonWriterPipeline:
     def open_spider(self, spider):
         # Abrir un archivo para escribir en modo de escritura cuando el spider se inicie
-        self.file = open('books_data.json', 'w')
+        self.file = open('books_data.json', 'w', encoding='utf-8')
         self.file.write('[')
         self.first_item = True
 
@@ -23,11 +23,16 @@ class JsonWriterPipeline:
         self.file.close()
 
     def process_item(self, item, spider):
-        # Convierte el item en una cadena JSON
+
+        for field, value in item.items():
+            if isinstance(value, str):
+                item[field] = value.encode('utf-8').decode('utf-8', 'ignore')
+
+        # JSON conversion
         if not self.first_item:
             self.file.write(',\n')
         self.first_item = False
-        line = json.dumps(dict(item), indent=4)
+        line = json.dumps(dict(item), indent=4, ensure_ascii=False)
         self.file.write(line)
         return item
 

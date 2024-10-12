@@ -15,3 +15,5 @@ class PazBookItem(scrapy.Item):
     isbn = scrapy.Field()
     pages = scrapy.Field()
     synopsis = scrapy.Field()
+    cover = scrapy.Field()
+    cost = scrapy.Field()
