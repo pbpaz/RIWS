@@ -12,12 +12,14 @@ BOT_NAME = "riws"
 SPIDER_MODULES = ["riws.spiders"]
 NEWSPIDER_MODULE = "riws.spiders"
 
+USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0'
+
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = "riws (+http://www.yourdomain.com)"
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = True
+ROBOTSTXT_OBEY = False
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32

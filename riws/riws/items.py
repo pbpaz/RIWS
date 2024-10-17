@@ -6,7 +6,7 @@
 import scrapy
 
 
-class PazBookItem(scrapy.Item):
+class BookItem(scrapy.Item):
     name = scrapy.Field()
     author = scrapy.Field()
     editorial = scrapy.Field()
@@ -15,3 +15,5 @@ class PazBookItem(scrapy.Item):
     isbn = scrapy.Field()
     pages = scrapy.Field()
     synopsis = scrapy.Field()
+    cover = scrapy.Field()
+    cost = scrapy.Field()
