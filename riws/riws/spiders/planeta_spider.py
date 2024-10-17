@@ -1,60 +1,55 @@
 import scrapy
-from riws.items import BookItem 
+import json
+import jsonschema
+from riws.items import PazBookItem 
 from scrapy.linkextractors import LinkExtractor
 from scrapy.spiders import CrawlSpider, Rule
 
 class PlanetadelibrosSpider(CrawlSpider):
     name = 'planetadelibros'
     allowed_domains = ['planetadelibros.com']
-    #start_urls = ['https://www.planetadelibros.com/']
-    start_urls = ['https://www.planetadelibros.com/libro-el-mejor-libro-del-mundo/399554']
+    start_urls = ['https://www.planetadelibros.com/']
 
     rules = (
-        #Rule(
-        #    LinkExtractor(allow=r'/libros/[a-zA-Z\-]+/\d+$'), 
-        #    callback='parse_item',
-        #    follow=True
-        #),
-        #Rule(
-        #    LinkExtractor(allow=r'/libros/[a-zA-Z\-]+/\d+/p/\d+$'), 
-        #    follow=True
-        #),
-        #Rule(
-        #    LinkExtractor(allow=r'/[a-zA-Z\-]+/\d+$'), 
-        #    callback='parse_book',
-        #    follow=False
-        #),
+        #categorias
         Rule(
-            LinkExtractor(allow='https://www.planetadelibros.com/libro-el-mejor-libro-del-mundo/399554'), 
+            LinkExtractor(allow=r'/libros/[a-zA-Z\-]+/\d+$'),
+            follow=True
+        ),
+        Rule(
+            LinkExtractor(allow=r'/libros/[a-zA-Z\-]+/\d+/p/\d+$'), 
+            follow=True
+        ),
+
+        Rule(
+            LinkExtractor(allow=r'https://www.planetadelibros.com/[a-zA-Z\-]+/\d+$'), 
             callback='parse_book',
             follow=False
         ),
     )
 
-    def parse_item(self, response):
-        with open('categorias.txt', 'a', encoding='utf-8') as f:
-            f.write(f"{response.url}\n")
-        
-        print(f"Procesando URL: {response.url}")
-        
     def parse_book(self, response):
         book_title = response.css('h1.FichaLibro_fichaLibro__titulo__zoYiu::text').get()
-
         author = response.css('ul.LibroAutores_autoresList__ND_Mc li.LibroAutores_autoresListItem__i2Pkw a::text').get()
-
+        category = response.css('td.FichaTecnica_fichaTecnicaValue__Tnr08 ul.FichaTecnica_fichaTecnicaList__Pe77f li a::text').getall()
         editorial = response.css('table.FichaTecnica_fichaTecnicaTabla__VKBCJ tr:contains("Editorial") td.FichaTecnica_fichaTecnicaValue__Tnr08 a::text').get()
-
         isbn = response.css('table.FichaTecnica_fichaTecnicaTabla__VKBCJ tr:contains("ISBN") td.FichaTecnica_fichaTecnicaValue__Tnr08::text').get()
-
         pages = response.css('table.FichaTecnica_fichaTecnicaTabla__VKBCJ tr:contains("Páginas") td.FichaTecnica_fichaTecnicaValue__Tnr08::text').get()
+        
+        json_data = response.css('script#\\__NEXT_DATA__::text').get()
+        
+        cover = None
+        if json_data:
+            data = json.loads(json_data)
+            cover = data.get('props', {}).get('pageProps', {}).get('page', {}).get('schema', {}).get('image', None)
 
-        cover = response.css('div#libroGallery img::attr(src)').get()
+            if isinstance(cover, dict) and 'path' in cover:
+                cover = cover['path']
 
         synopsis = ' '.join(response.css('div.mantine-Text-root p::text').getall())
-
         cost = response.css('button.OpcionesCompra_btnFormato__LQpT9 span.OpcionesCompra_btnFormato__precio__k3qxO::text').get()
 
-        item = BookItem(
+        item = PazBookItem(
             name=book_title,
             author=author,
             editorial=editorial,
@@ -62,11 +57,9 @@ class PlanetadelibrosSpider(CrawlSpider):
             cover=cover,
             pages=pages,
             cost=cost,
-            synopsis=synopsis
+            synopsis=synopsis,
+            category=category
         )
 
-        with open('books_data.txt', 'a', encoding='utf-8') as f:
-            f.write(f"{item}\n")
-
-        yield item    
+        yield item   
 

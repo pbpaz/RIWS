@@ -21,7 +21,7 @@ class JsonWriterPipeline:
         # Cerrar el archivo cuando el spider se cierre
         self.file.write(']\n')  # Escribir el final del array JSON
         self.file.close()
-
+ 
     def process_item(self, item, spider):
 
         for field, value in item.items():
