@@ -3,7 +3,7 @@ from riws.items import PazBookItem
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
 
-class PazSpider(CrawlSpider):
+class ByscalibreSpider(CrawlSpider):
     name="buscalibre_spider"
     
     allowed_domains = ['www.buscalibre.es']
@@ -13,7 +13,6 @@ class PazSpider(CrawlSpider):
 
         'https://www.buscalibre.es'
     ]
-
 
     #Rules for the spider
     rules = (
@@ -28,6 +27,7 @@ class PazSpider(CrawlSpider):
     def parse(self, response):
 
         item = PazBookItem()
+        item['url'] = response.url
         item['name'] = response.css('p.tituloProducto::text').get()
         item['author'] = response.css('p.font-weight-light a.font-color-bl::text').get().strip()
         item['editorial'] = response.css('div#metadata-editorial a::text').get().strip()

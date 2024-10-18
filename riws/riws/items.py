@@ -7,6 +7,7 @@ import scrapy
 
 
 class PazBookItem(scrapy.Item):
+    url = scrapy.Field()
     name = scrapy.Field()
     author = scrapy.Field()
     editorial = scrapy.Field()
