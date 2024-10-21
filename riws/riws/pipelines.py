@@ -7,8 +7,68 @@
 # useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
 
-
 import json
+import re
+
+class ProcessPazSpiderPipeline:
+
+    def process_item(self, item, spider):
+
+        if spider.name != 'paz_spider':
+            return
+        
+        #Author
+        if item['author'] is not None:
+            t1 = item.get('author')
+            t2 = t1.split(",")
+            if len(t2) > 1:
+                item['author'] = t2[1] + " " + t2[0]
+
+        #Edition_date
+        if item['edition_date'] is not None:
+            item['edition_date'] = int(item.get('edition_date'))
+
+        #Cost
+        if item['cost'] is not None:
+            t1 = item.get('cost')
+            t2 = t1.split()
+            item['cost'] = float(t2[0].replace(',', '.'))
+
+        #Pages
+        if item['pages'] is not None:
+            item['pages'] = int(item.get('pages'))
+
+        #ISBN
+        if item['isbn'] is not None:
+            item['isbn'] = int(item.get('isbn').replace('-', ''))
+         
+        #Synopsis
+        if item['synopsis'] is not None:
+            item['synopsis'] = " ".join(item.get('synopsis'))
+            item['synopsis'] = item.get('synopsis').replace('\n', '').replace('\r', '').replace('\t', '')
+
+        #Category
+        t1 = item.get('category')
+        if t1 == 'Sin clasificar':
+            item['category'] = []
+        else:
+            t1 = item.get('category')
+            t2 = re.split(r' e |\. | - ', t1)
+            if len(t2) > 1:
+                item['category'] = t2
+            else:
+                item['category'] = [item.get('category')]
+            
+        self.file = open('categories.txt', 'a', encoding='utf-8')
+        for element in item['category']:
+            self.file.write(f"{element}\n")
+        
+        return item
+        
+
+
+
+
 
 class JsonWriterPipeline:
     def open_spider(self, spider):

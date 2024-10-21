@@ -63,7 +63,8 @@ ROBOTSTXT_OBEY = False
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    "riws.pipelines.JsonWriterPipeline": 1,
+    "riws.pipelines.ProcessPazSpiderPipeline": 1,
+    "riws.pipelines.JsonWriterPipeline": 2,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
