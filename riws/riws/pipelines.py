@@ -15,7 +15,7 @@ class ProcessPazSpiderPipeline:
     def process_item(self, item, spider):
 
         if spider.name != 'paz_spider':
-            return
+            return item
         
         #Author
         if item['author'] is not None:
@@ -66,6 +66,61 @@ class ProcessPazSpiderPipeline:
         return item
         
 
+class ProcessBuscalibreSpiderPipeline:
+
+    def process_item(self, item, spider):
+
+        if spider.name != "buscalibre_spider":
+            return item
+        
+        #Author
+        if item['author'] is not None:
+            authors = item['author'].strip().split(';')
+            final_auth= []
+            for author in authors:
+                final_name=author
+                if "," in author:
+                    words = author.split(",")
+                    final_name = words[1] + " " + words[0]
+                final_auth.append(final_name.strip())
+            item['author'] = final_auth
+
+        if item['name'] is not None:
+            item['name'] = item['name'].strip()
+        #Editorial
+        if item['editorial'] is not None:
+            item['editorial'] = item['editorial'].strip()
+        #Edition_date
+        if item['edition_date'] is not None:
+            item['edition_date'] = int(item['edition_date'].strip())
+
+        #Cost
+        if item['cost'] is not None:
+            t1 = item['cost']
+            t2 = t1.split()
+            item['cost'] = float(t2[0].replace(',', '.'))
+
+        #Pages
+        if item['pages'] is not None:
+            item['pages'] = int(item['pages'].strip())
+
+        #ISBN
+        if item['isbn'] is not None:
+            item['isbn'] = int(item['isbn'].strip())
+         
+        #Synopsis
+        if item['synopsis'] is not None:
+            item['synopsis'] = " ".join(item['synopsis'])
+            item['synopsis'] = item.get('synopsis').replace('\n', '').replace('\r', '').replace('\t', '')
+
+        #Category
+        categories = item.get('category')
+        cat2 = []
+        for cat in categories:
+            cat2.append(cat.strip())
+        item['category'] = cat2
+        
+        return item
 
 
 
