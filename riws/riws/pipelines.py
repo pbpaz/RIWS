@@ -64,11 +64,44 @@ class ProcessPazSpiderPipeline:
             self.file.write(f"{element}\n")
         
         return item
+
+class ProcessPlanetadelibrosSpider:
+
+    def process_item(self, item, spider):
+
+        #Cost
+        if item['cost'] is not None:
+            t1 = item.get('cost')
+            t2 = t1.split()
+            item['cost'] = float(t2[0].replace(',', '.'))
+
+        #Pages
+        if item['pages'] is not None:
+            item['pages'] = int(item.get('pages'))
+
+        #ISBN
+        if item['isbn'] is not None:
+            item['isbn'] = int(item.get('isbn').replace('-', ''))
+
+        #Category
+        if item['category'] is not None:
+            if isinstance(item['category'], list):
+                if len(item['category']) > 0:
+                    item['category'].pop(0)
+                if len(item['category']) > 0:
+                    item['category'].pop(0)    
+                if len(item['category']) > 0:
+                    item['category'].pop()
+         
+        #Synopsis
+        if item['synopsis'] is not None:
+            item['synopsis'] = item.get('synopsis').replace('\n', '').replace('\r', '').replace('\t', '')
+
+        self.file = open('categories.txt', 'a', encoding='utf-8')
+        for element in item['category']:
+            self.file.write(f"{element}\n")     
         
-
-
-
-
+        return item
 
 class JsonWriterPipeline:
     def open_spider(self, spider):
