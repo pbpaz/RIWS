@@ -8,30 +8,36 @@ from scrapy.spiders import CrawlSpider, Rule
 class PlanetadelibrosSpider(CrawlSpider):
     name = 'planetadelibros'
     allowed_domains = ['planetadelibros.com']
-    start_urls = ['https://www.planetadelibros.com/']
+    start_urls = ['https://www.planetadelibros.com/libros']
+
+    custom_settings = {
+        'ITEM_PIPELINES': {
+            "riws.pipelines.ProcessPlanetadelibrosSpider": 1,
+            "riws.pipelines.JsonWriterPipeline": 2,
+        }
+    }
 
     rules = (
         #categorias
         Rule(
-            LinkExtractor(allow=r'/libros/[a-zA-Z\-]+/\d+$'),
-            follow=True
+           LinkExtractor(allow=r'/libros/[a-zA-Z\-]+/\d+$'),
+           follow=True
         ),
         Rule(
-            LinkExtractor(allow=r'/libros/[a-zA-Z\-]+/\d+/p/\d+$'), 
+           LinkExtractor(allow=r'/libros/[a-zA-Z\-]+/\d+/p/\d+$'), 
             follow=True
         ),
-
         Rule(
             LinkExtractor(allow=r'https://www.planetadelibros.com/[a-zA-Z\-]+/\d+$'), 
             callback='parse_book',
             follow=False
-        ),
+        )
     )
 
     def parse_book(self, response):
         book_title = response.css('h1.FichaLibro_fichaLibro__titulo__zoYiu::text').get()
         author = response.css('ul.LibroAutores_autoresList__ND_Mc li.LibroAutores_autoresListItem__i2Pkw a::text').get()
-        category = response.css('td.FichaTecnica_fichaTecnicaValue__Tnr08 ul.FichaTecnica_fichaTecnicaList__Pe77f li a::text').getall()
+        category = response.css('ol.Breadcrumbs_breadcrumb__list__MWwmC li span::text').getall()
         editorial = response.css('table.FichaTecnica_fichaTecnicaTabla__VKBCJ tr:contains("Editorial") td.FichaTecnica_fichaTecnicaValue__Tnr08 a::text').get()
         isbn = response.css('table.FichaTecnica_fichaTecnicaTabla__VKBCJ tr:contains("ISBN") td.FichaTecnica_fichaTecnicaValue__Tnr08::text').get()
         pages = response.css('table.FichaTecnica_fichaTecnicaTabla__VKBCJ tr:contains("Páginas") td.FichaTecnica_fichaTecnicaValue__Tnr08::text').get()
@@ -46,7 +52,7 @@ class PlanetadelibrosSpider(CrawlSpider):
             if isinstance(cover, dict) and 'path' in cover:
                 cover = cover['path']
 
-        synopsis = ' '.join(response.css('div.mantine-Text-root p::text').getall())
+        synopsis = ' '.join(response.css('div.mantine-Text-root *::text').getall())
         cost = response.css('button.OpcionesCompra_btnFormato__LQpT9 span.OpcionesCompra_btnFormato__precio__k3qxO::text').get()
 
         item = PazBookItem(
@@ -61,5 +67,6 @@ class PlanetadelibrosSpider(CrawlSpider):
             category=category
         )
 
+        print(item)
         yield item   
 
