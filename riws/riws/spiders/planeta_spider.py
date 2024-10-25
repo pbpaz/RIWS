@@ -35,6 +35,7 @@ class PlanetadelibrosSpider(CrawlSpider):
     )
 
     def parse_book(self, response):
+        url = response.url
         book_title = response.css('h1.FichaLibro_fichaLibro__titulo__zoYiu::text').get()
         author = response.css('ul.LibroAutores_autoresList__ND_Mc li.LibroAutores_autoresListItem__i2Pkw a::text').get()
         category = response.css('ol.Breadcrumbs_breadcrumb__list__MWwmC li span::text').getall()
@@ -56,6 +57,7 @@ class PlanetadelibrosSpider(CrawlSpider):
         cost = response.css('button.OpcionesCompra_btnFormato__LQpT9 span.OpcionesCompra_btnFormato__precio__k3qxO::text').get()
 
         item = PazBookItem(
+            url = url,
             name=book_title,
             author=author,
             editorial=editorial,
@@ -64,9 +66,9 @@ class PlanetadelibrosSpider(CrawlSpider):
             pages=pages,
             cost=cost,
             synopsis=synopsis,
-            category=category
+            category=category,
+            edition_date=None
         )
 
-        print(item)
         yield item   
 
