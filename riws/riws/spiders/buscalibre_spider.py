@@ -12,9 +12,15 @@ class ByscalibreSpider(CrawlSpider):
     cats = []
     #Start URL
     start_urls = [
-
         'https://www.buscalibre.es'
     ]
+
+    custom_settings = {
+        'ITEM_PIPELINES': {
+            "riws.pipelines.ProcessBuscalibreSpiderPipeline": 1,
+            "riws.pipelines.JsonWriterPipeline": 2,
+        }
+    }
 
     #Rules for the spider
     rules = (

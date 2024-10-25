@@ -14,6 +14,12 @@ class PazSpider(CrawlSpider):
         # 'https://www.librariapaz.gal/es/index.php'
     ]
 
+    custom_settings = {
+        'ITEM_PIPELINES': {
+            "riws.pipelines.ProcessPazSpiderPipeline": 1,
+            "riws.pipelines.JsonWriterPipeline": 2,
+        },
+    }
 
     #Rules for the spider
     rules = (
