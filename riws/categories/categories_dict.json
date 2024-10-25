@@ -6,13 +6,25 @@
         "Poesía",
         "Estudios literarios de poesías y poetas",
         "Poesía contemporánea",
-        "Poesía urbana",
-        "Poesia"
+        "Poesía urbana"
     ],
     "Hobbies": [
         "hobbie",
         "tiempo libre",
-        "hobbies"
+        "manualidades",
+        "vacaciones",
+        "Viajes y vacaciones",
+        "Artesanías, artes decorativas y manualidades",
+        "Vacaciones con niños y familiares",
+        "Vacaciones activas",
+        "Vacaciones de aventura",
+        "Manualidades con libros y papel",
+        "Bisutería y manualidades con cuentas y abalorios",
+        "Arreglos florales y manualidades con flores",
+        "Manualidades",
+        "Actividades y manualidades",
+        "hobbies",
+        "Vacacions"
     ],
     "Salud": [
         "salud",
@@ -76,8 +88,7 @@
         "Enseñanza a personas con discapacidad física",
         "Enseñanza superior y educación universitaria",
         "Enseñanza en el hogar",
-        "Educación",
-        "Ensaio"
+        "Educación"
     ],
     "Thriller": [
         "thriller",
@@ -148,9 +159,7 @@
         "Romántica",
         "Novela Romántica medieval",
         "Novela romántica",
-        "Novela Romántica clásicos",
-        "Gramática",
-        "Erotica"
+        "Novela Romántica clásicos"
     ],
     "Ficción": [
         "Ficción",
@@ -220,9 +229,7 @@
         "Siglo XX",
         "Siglo XIX",
         "Segunda Guerra Mundial",
-        "Novela histórica",
-        "Prehistoria",
-        "Protohistoria"
+        "Novela histórica"
     ],
     "Biografía": [
         "biografía",
@@ -240,16 +247,13 @@
         "Biografías, literaturas y estudios literarios",
         "Autobiografías de religiosos",
         "Biografías de filósofos",
-        "Autobiografías",
-        "Geografía",
-        "Biografias"
+        "Autobiografías"
     ],
     "Ensayo": [
         "ensayo",
         "Fotoperiodismo y ensayos",
         "Ensayos literarios",
-        "Ensayos y correspondencia",
-        "Ensaio"
+        "Ensayos y correspondencia"
     ],
     "Psicología": [
         "psicología",
@@ -274,17 +278,11 @@
         "Teoría de la psicología",
         "Psicología forense",
         "Parapsicología",
-        "Biología",
-        "Semiología",
-        "Sociología",
-        "Fisiologiía",
-        "Ecología",
         "psicoloxía"
     ],
     "Filosofía": [
         "filosfía",
-        "Filosofía",
-        "Filosofia"
+        "Filosofía"
     ],
     "Ingeniería": [
         "ingenieria"
@@ -326,7 +324,6 @@
         "Alternativas humanistas a la religión",
         "Religión novela",
         "Religión",
-        "Cristianos",
         "Budismo",
         "Judaísmo"
     ],
@@ -397,9 +394,6 @@
         "Ciencias ocultas",
         "Ciencias humanas y sociales",
         "Teología",
-        "Endocrinología",
-        "Penología",
-        "Etnología",
         "Ecología",
         "Ciencia"
     ],
@@ -470,10 +464,7 @@
         "Renacimiento",
         "Pintura",
         "Escultura",
-        "Musica",
-        "Música",
-        "Rococó",
-        "Envejecimiento"
+        "Musica"
     ],
     "Cocina": [
         "cocina",
@@ -512,10 +503,7 @@
         "Cocina catalana",
         "Cocina para principiantes",
         "Cocina",
-        "Recetas",
-        "Escocia",
-        "Croacia",
-        "Cociña"
+        "Recetas"
     ],
     "Literatura Infantil": [
         "infantil",
@@ -563,8 +551,7 @@
         "Ficción infantil y juvenil: steampunk",
         "Estudios generales de literatura infantil y juvenil",
         "Cómic y manga infantil",
-        "Infantil",
-        "Infancia"
+        "Infantil"
     ],
     "Literatura Juvenil": [
         "juvenil",
@@ -630,8 +617,7 @@
         "Cómic y manga infantil",
         "Cómic y manga juvenil",
         "Cómic y manga adultos",
-        "Manga",
-        "Magia"
+        "Manga"
     ],
     "Novela": [
         "novela",
@@ -730,9 +716,7 @@
         "Deportes con vehículos motorizados",
         "Deportes y actividades de ocio al aire libre",
         "Deportes",
-        "Fútbol y Deportes",
-        "Fútbol",
-        "Alfabetismo"
+        "Fútbol y Deportes"
     ],
     "Países": [
         "afganistán",
@@ -797,7 +781,6 @@
         "gambia",
         "georgia",
         "ghana",
-        "gibraltar",
         "granada",
         "grecia",
         "guatemala",
@@ -986,17 +969,7 @@
         "Novela Romántica medieval",
         "Novela romántica",
         "Novela Romántica clásicos",
-        "África",
         "Australasia",
-        "Noruego",
-        "México",
-        "Infancia",
-        "Lógica",
-        "Eslovaquia",
-        "Chino",
-        "Cocina",
-        "Cociña",
-        "Ecoloxia",
-        "Economia"
+        "Noruego"
     ]
 }

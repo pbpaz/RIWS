@@ -5,7 +5,7 @@ import copy
 # Definir categorías generales
 keywords = {
     "Poesía": ["poesía", "lírica"],
-    "Hobbies": ["hobbie", "tiempo libre"],
+    "Hobbies": ["hobbie", "tiempo libre", "manualidades", "vacaciones"],
     "Salud": ["salud", "saude", "medicina"],
     "Educación": ["educacion", "ensino", "enseñanza"],
     "Thriller": ["thriller"],
@@ -39,7 +39,7 @@ keywords = {
     "canadá", "chad", "checoslovaquia", "chile", "china", "chipre", "colombia", "comoras", "costa de marfil",
     "costa rica", "croacia", "cuba", "dinamarca", "dominica", "ecuador", "egipto", "el salvador", "emiratos árabes unidos",
     "eslovenia", "españa", "estados unidos", "estonia", "eswatini", "ethiopía", "filipinas", "finlandia",
-    "francia", "gabón", "gambia", "georgia", "ghana", "gibraltar", "granada", "grecia", "guatemala",
+    "francia", "gabón", "gambia", "georgia", "ghana", "granada", "grecia", "guatemala",
     "guinea", "guinea-bisáu", "guinea ecuatorial", "haití", "holanda", "hungría", "india", "indonesia",
     "irán", "iraq", "irlanda", "islandia", "israel", "italia", "jamaica", "japón", "jordania", "kazajistán",
     "kenia", "kirguistán", "kiribati", "korea del norte", "korea del sur", "kuwait", "laos", "lesoto",
@@ -59,7 +59,7 @@ keywords = {
 def group_by_keywords(categories, dic):
     
     for category in categories:
-        for general, key_list in dic.items():
+        for general, key_list in keywords.items():
             if any(keyword in category.lower() for keyword in key_list):
                 if category not in dic[general]:
                     dic[general].append(category)
@@ -99,27 +99,22 @@ with open("paz_unique_categories.txt", "r", encoding="utf-8") as file:
 with open("planeta_categories.txt", "r", encoding="utf-8") as file:
     planeta_content = [linea.strip() for linea in file.readlines()]
 
-
-#Grouping by keywords
 initial_dic = copy.deepcopy(keywords)
-
 res1 = group_by_keywords(buscalibre_content, initial_dic)
 res2 = group_by_keywords(planeta_content, res1)
 keys_dict = group_by_keywords(paz_content, res2)
 
 
 #Similarity grouping
-threshold = 75
-initial_dic_2 = copy.deepcopy(keywords)
+threshold = 85
 
+initial_dic_2 = copy.deepcopy(keywords)
 similarity_1 = group_by_similarity(buscalibre_content, initial_dic_2)
 similarity_2 = group_by_similarity(planeta_content, similarity_1)
 similarity_dict = group_by_similarity(paz_content, similarity_2)
 
 #Combining dicts
 final_dict = combine_dictionaries(keys_dict, similarity_dict)
-
-print(sum(len(v) for v in final_dict.values()), "\n")
 
 #Saving the final dict
 with open("categories_dict.json", 'w', encoding='utf-8') as file:
