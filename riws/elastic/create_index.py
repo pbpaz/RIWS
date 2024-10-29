@@ -11,15 +11,26 @@ mapping = {
         "properties": {
             "url": {"type": "text"},
             "name": {"type": "text"},
-            "author": {"type": "text"},
-            "author_keyword": {"type": "keyword"},
-            "editorial": {"type": "text"},
-            "editorial_keyword": {"type": "keyword"},
+            "author": {"type": "text", 
+                       "fields": {
+                           "raw": {
+                               "type": "keyword"
+                           }
+                       }},
+            "editorial": {"type": "text",
+                          "fields": {
+                           "raw": {
+                               "type": "keyword"
+                           }
+                       }},
             "edition_date": {"type": "integer"},
-            "category": {"type": "text"},
-            "category_keyword": {"type": "keyword"},
+            "category": {"type": "text", 
+                         "fields": {
+                           "raw": {
+                               "type": "keyword"
+                           }
+                       }},
             "isbn": {"type": "keyword"},
-            "isbn_keyword": {"type": "keyword"},
             "pages": {"type": "integer"},
             "synopsis": {"type": "text"},
             "cover": {"type": "text"},
@@ -29,4 +40,4 @@ mapping = {
 }
 
 es.indices.create(index=index_name, body=mapping)
-print(f"Índice '{index_name}' creado con éxito.")
+print(f"Index '{index_name}' succesfully created.")
