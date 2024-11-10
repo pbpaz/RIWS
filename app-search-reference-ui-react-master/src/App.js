@@ -1,6 +1,6 @@
 import React from "react";
 import ElasticsearchAPIConnector from "@elastic/search-ui-elasticsearch-connector";
-
+import ClearFilters from "./clear";
 import {
   ErrorBoundary,
   Facet,
@@ -31,6 +31,7 @@ ElasticsearchAPIConnector( {host:"http://localhost:9200", index: "books"});
 
 
 const config = {
+  debug: true,
   searchQuery: {
     facets: buildFacetConfigFromConfig(),
     ...buildSearchOptionsFromConfig()
@@ -58,6 +59,7 @@ export default function App() {
                           sortOptions={buildSortOptionsFromConfig()}
                         />
                       )}
+                      <ClearFilters></ClearFilters>
                       {getFacetFields().map(field => (
                         <Facet key={field} field={field} label={field} />
                       ))}
