@@ -10,13 +10,15 @@ mapping = {
     "mappings": {
         "properties": {
             "url": {"type": "text"},
-            "name": {"type": "text"},
+            "name": {"type": "text", "fields" : { "suggest": {"type": "completion"}}},
             "author": {"type": "text", 
                        "fields": {
                            "raw": {
                                "type": "keyword"
-                           }
-                       }},
+                           }, 
+                           "suggest": {"type": "completion"}
+                       }
+           },
             "editorial": {"type": "text",
                           "fields": {
                            "raw": {
