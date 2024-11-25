@@ -84,7 +84,7 @@ export function stripUnnecessaryResultFields(resultFields) {
   }, {});
 }
 
-export function buildSearchOptionsFromConfig() {
+export function buildSearchOptionsFromConfig(patat) {
   const config = getConfig();
   /*const searchFields = (config.searchFields || config.fields || []).reduce(
     (acc, n) => {
@@ -142,10 +142,12 @@ export function buildSearchOptionsFromConfig() {
       }
     };
   }
-
   const searchOptions = {};
   searchOptions.result_fields = resultFields;
-  searchOptions.search_fields = {name :  {weight : 3}, author: {weight : 2}, synopsis: {}};
+  if( patat === "default") {
+    searchOptions.search_fields = {name :  {weight : 3}, author: {weight: 2}, synopsis: {weight: 1}};
+  }else 
+ { searchOptions.search_fields = {[patat] :  {weight : 3}};}
   return searchOptions;
 }
 
@@ -161,7 +163,19 @@ export function buildFacetConfigFromConfig() {
     return acc;
   }, undefined);
 
-  return facets;
+  const facets2 = {
+    ...facets, // Spread existing facets
+    cost: {
+      type: "range",
+      ranges: [
+        { from: 0, to: 5, name: "mu barato" },
+        { from: 5, to: 10, name: "barato" },
+        { from: 10, to: 20, name: "weno..." },
+        { from: 20, to: 100, name: "tu tas loco???" }
+      ]
+    }
+  };
+  return facets2;
 }
 
 export function buildSortOptionsFromConfig() {
@@ -188,7 +202,7 @@ export function buildSortOptionsFromConfig() {
   ];
 }
 
-export function buildAutocompleteQueryConfig() {
+export function buildAutocompleteQueryConfig(patat) {
   const querySuggestFields = getConfig().querySuggestFields;
   if (
     !querySuggestFields ||
@@ -198,13 +212,22 @@ export function buildAutocompleteQueryConfig() {
     return {};
   }
 
-  return {
-    suggestions: {
-      types: {
-        documents: {
-          fields: getConfig().querySuggestFields
+  if(patat === "author" || patat === "name" ){
+     return {
+      suggestions: {
+        types: {
+          documents: {
+            fields: [`${patat}.suggest`]
+          }
         }
       }
-    }
-  };
+    };} else {return {
+      suggestions: {
+        types: {
+          documents: {
+            fields: ["name.suggest"]
+          }
+        }
+      }
+    };}
 }

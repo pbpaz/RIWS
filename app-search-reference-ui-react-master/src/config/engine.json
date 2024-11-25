@@ -2,7 +2,7 @@
   "endpointBase": "localhost:9200",
   "engineName": "Books",
   "searchKey": "search-nyxkw1fuqex9qjhfvatbqfmw",
-  "searchFields": ["name", "author", "synopsis"],
+  "searchFields": ["name", "author", "synopsis", "isbn"],
   "resultFields": [
     "name",
     "editorial",
@@ -18,6 +18,6 @@
   "titleField": "name",
   "urlField": "url",
   "thumbnailField": "cover",
-  "sortFields": ["pages.raw", "cost"],
-  "facets": ["category.raw"]  
+  "sortFields": ["cost"],
+  "facets": ["category.raw", "cost"]  
 }
