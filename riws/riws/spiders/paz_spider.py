@@ -1,4 +1,3 @@
-import scrapy
 from riws.items import PazBookItem 
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
@@ -10,8 +9,7 @@ class PazSpider(CrawlSpider):
 
     #Start URL
     start_urls = [
-        'https://www.librariapaz.gal/es/libro/manga-art_720130'
-        # 'https://www.librariapaz.gal/es/index.php'
+        'https://www.librariapaz.gal/es/index.php'
     ]
 
     custom_settings = {

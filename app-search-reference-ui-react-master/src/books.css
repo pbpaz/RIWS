@@ -1,0 +1,38 @@
+/* Define a grid layout */
+.grid-container {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 20px;
+    align-items: start;
+    padding: 20px;
+  }
+  
+  .cover {
+    width: 300px;
+    height: 400px;
+    object-fit: contain;
+    border-radius: 8px;
+  }
+  
+  .info h1 {
+    margin: 0;
+    font-size: 30px;
+  }
+
+  .info h2 {
+    margin-top: 5px;
+    font-size: 20px;
+  }
+
+  .p-cost {
+    font-size: 25px;
+    color: #555;
+  }
+  
+  .basic {
+    font-size: 15px;
+    color: #555;
+  }
+
+
+  
