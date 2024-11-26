@@ -100,7 +100,7 @@ export default function App() {
                       <div className="sui-search-box__wrapper">
                         <input
                           {...getInputProps({
-                            placeholder: "Introduce el título o autor del libro"
+                            placeholder: "Introduce el título, autor, ISBN..."
                           })}
                         />
                         {getAutocomplete()}
@@ -115,16 +115,12 @@ export default function App() {
                   autocompleteSuggestions = "true" />}
                   sideContent={
                     <div>
-                      {wasSearched && (
-                        <Sorting
-                          label={"Ordenar por"}
-                          sortOptions={buildSortOptionsFromConfig()}
-                        />
-                      )}
                       <ClearFilters></ClearFilters>
-                      {getFacetFields().map(field => (
-                        <Facet key={field} field={field} label={field} />
-                      ))}
+
+                      <Facet field="category.raw" label="Categorias" view={MultiCheckboxFacet} />
+                      <Facet field="cost" label="Precio" view={MultiCheckboxFacet} />
+                      <Facet field="pages" label="Páginas" view={MultiCheckboxFacet} />
+                      
                     </div>
                   }
                   bodyContent={

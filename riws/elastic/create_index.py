@@ -32,7 +32,12 @@ mapping = {
                                "type": "keyword"
                            }
                        }},
-            "isbn": {"type": "keyword"},
+            "isbn": {"type": "text", 
+                         "fields": {
+                           "raw": {
+                               "type": "keyword"
+                           }
+                       }},
             "pages": {"type": "integer"},
             "synopsis": {"type": "text"},
             "cover": {"type": "text"},
