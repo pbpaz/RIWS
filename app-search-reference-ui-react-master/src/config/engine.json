@@ -1,0 +1,23 @@
+{
+  "endpointBase": "localhost:9200",
+  "engineName": "Books",
+  "searchKey": "search-nyxkw1fuqex9qjhfvatbqfmw",
+  "searchFields": ["name", "author", "synopsis", "isbn"],
+  "resultFields": [
+    "name",
+    "editorial",
+    "author",
+    "edition_date",
+    "category",
+    "isbn",
+    "pages",
+    "synopsis",
+    "cost"
+  ],
+  "querySuggestFields": ["author.suggest", "name.suggest"],
+  "titleField": "name",
+  "urlField": "url",
+  "thumbnailField": "cover",
+  "sortFields": ["cost"],
+  "facets": ["category.raw", "cost"]  
+}

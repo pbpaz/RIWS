@@ -1,5 +1,7 @@
 import React from "react";
 import ElasticsearchAPIConnector from "@elastic/search-ui-elasticsearch-connector";
+import ClearFilters from "./clear";
+import { useEffect, useState } from "react";
 import "./books.css"
 import { BooleanFacet, MultiCheckboxFacet, SingleLinksFacet, SingleSelectFacet } from "@elastic/react-search-ui-views";
 
@@ -34,6 +36,7 @@ ElasticsearchAPIConnector( {host:"http://localhost:9200", index: "books"});
 
 
 const config = {
+  debug: true,
   searchQuery: {
     facets: buildFacetConfigFromConfig(),
     ...buildSearchOptionsFromConfig()
@@ -52,16 +55,64 @@ const omitFields = (result, fieldsToRemove) => {
 };
 
 export default function App() {
+
+  const [auxConfig, setConfig] = useState(config)
+  const [selectedValue, setValue] = useState("Title");
+
+  useEffect(() => {
+    console.log("AAAA")
+    console.log(auxConfig)
+  },[auxConfig]);
+
+  const changeConfig = (selector) => {
+    setValue(selector)
+    setConfig({
+      debug: true,
+      searchQuery: {
+        facets: buildFacetConfigFromConfig(),
+        ...buildSearchOptionsFromConfig(selector)
+      },
+      autocompleteQuery: buildAutocompleteQueryConfig(selector),
+      apiConnector: connector,
+      alwaysSearchOnInitialLoad: true})
+};
+
+
   return (
-    <SearchProvider config={config}>
+    <SearchProvider id="search-provider" config={auxConfig}>
       <WithSearch mapContextToProps={({ wasSearched }) => ({ wasSearched })}>
         {({ wasSearched }) => {
           return (
             <div className="App">
               <ErrorBoundary>
                 <Layout
-                  header={<SearchBox 
-                    autocompleteSuggestions={false} />}
+                
+                  header={<SearchBox inputView={({ getAutocomplete, getInputProps, getButtonProps }) => (
+                    <>
+                      <button>Inicio</button>
+                      <select onChange={(e) => changeConfig(e.target.value)} name="cars" id="cars" value={selectedValue}> 
+                      <option value="default">Por defecto</option>
+                      <option value="author">Autor</option>
+                      <option value="name">Título</option>
+                      <option value="isbn">ISBN</option>
+                      <option value="synopsis">Descripción</option>
+                    </select>
+                      <div className="sui-search-box__wrapper">
+                        <input
+                          {...getInputProps({
+                            placeholder: "Introduce el título o autor del libro"
+                          })}
+                        />
+                        {getAutocomplete()}
+                      </div>
+                      <input
+                        {...getButtonProps({
+                          "data-custom-attr": "some value"
+                        })}
+                      />
+                    </>
+                  )}
+                  autocompleteSuggestions = "true" />}
                   sideContent={
                     <div>
                       {wasSearched && (
@@ -70,9 +121,10 @@ export default function App() {
                           sortOptions={buildSortOptionsFromConfig()}
                         />
                       )}
-                      <Facet field="category.raw" label="Categorías" view={MultiCheckboxFacet} />
-                      <div id="slider"></div>
-
+                      <ClearFilters></ClearFilters>
+                      {getFacetFields().map(field => (
+                        <Facet key={field} field={field} label={field} />
+                      ))}
                     </div>
                   }
                   bodyContent={
