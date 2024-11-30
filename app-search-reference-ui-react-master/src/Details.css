@@ -1,0 +1,105 @@
+.BookCart {
+    position: relative;
+    display: grid;
+    grid-template-columns: 300px auto;
+    gap: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border-radius: 8px;
+  }
+  
+  .Cover {
+    width: 300px;
+    height: 400px;
+    border: 3px solid black;
+  }
+  
+  .SimpleInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 20px;
+    gap: 10px;
+    border-radius: 10px;
+    height: 300px;
+  }
+  
+  
+  #LaCasaDelLibro {
+    position: absolute; /* Permite posicionarlo dentro de su contenedor relativo */
+    bottom: 0; /* Lo mueve completamente hacia abajo */
+    right: 0; /* Lo mueve completamente hacia la izquierda */
+    background: linear-gradient(90deg, #5583EE,  #41D8DD);
+    height: 30px;
+    width: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    border: 2px solid black;
+    color: black;
+  }
+  
+  
+  #LaCasaDelLibro:hover {
+    border-width: 3px; /* Aumenta el borde a 4px */
+    background: linear-gradient(180deg, #5583EE,  #41D8DD);
+  }
+  
+  #PlanetaLibros {
+    background: linear-gradient(90deg, #6DE195, #C4E759);
+    height: 30px;
+    width: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    border: 2px solid black;
+    color: black;
+  }
+  
+  
+  #PlanetaLibros:hover {
+    border-width: 3px; /* Aumenta el borde a 4px */
+    background: linear-gradient(180deg, #6DE195, #C4E759);
+  }
+  
+  .offerContainer strong {
+    margin: 0;
+    font-size: 13px;
+  }
+  
+  #BuscaLibre {
+    background: linear-gradient(90deg, #F5CCF6, #F1EEF9);
+    height: 30px;
+    width: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    border: 2px solid black;
+    color: black;
+  }
+  
+  #BuscaLibre:hover {
+    border-width: 3px;
+    background: linear-gradient(180deg, #F5CCF6, #F1EEF9);
+  }
+  
+  .ButtomHome {
+    background: linear-gradient(90deg, #121317, #323B42);
+    color: white;
+  }
+  
+  .ButtomHome:hover {
+    background: linear-gradient(180deg, #121317, #323B42);
+    color: white;
+  }
+  
+  .title {
+    font-size: 32px;
+  }

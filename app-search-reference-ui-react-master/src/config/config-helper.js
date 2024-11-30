@@ -158,12 +158,12 @@ export function buildFacetConfigFromConfig() {
     acc = acc || {};
     acc[n] = {
       type: "value",
-      size: 100
+      size: 100,
     };
     return acc;
   }, undefined);
 
-  const facets2 = {
+  return {
     ...facets,
     cost: {
       type: "range",
@@ -171,24 +171,20 @@ export function buildFacetConfigFromConfig() {
         { from: 0, to: 10, name: "Menos de 10€" },
         { from: 10, to: 19.99, name: "De 10€ a 19.99€" },
         { from: 20, to: 29.99, name: "De 20€ a 29.99€" },
-        { from: 30, to: 100, name: "Más de 30€" }
-      ]
-    }
-  };
-
-  const facets3 = {
-    ...facets2,
+        { from: 30, to: 100, name: "Más de 30€" },
+      ],
+    },
     pages: {
       type: "range",
       ranges: [
         { from: 0, to: 99, name: "Menos de 100 páginas" },
         { from: 100, to: 300, name: "De 100 a 300 páginas" },
         { from: 301, to: 5000, name: "Más de 300 páginas" },
-      ]
-    }
+      ],
+    },
   };
-  return facets3;
 }
+
 
 export function buildSortOptionsFromConfig() {
   const config = getConfig();

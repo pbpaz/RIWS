@@ -4,6 +4,7 @@ import ClearFilters from "./clear";
 import { useEffect, useState } from "react";
 import "./books.css"
 import { BooleanFacet, MultiCheckboxFacet, SingleLinksFacet, SingleSelectFacet } from "@elastic/react-search-ui-views";
+import Details from "./Details";
 
 import {
   ErrorBoundary,
@@ -14,9 +15,7 @@ import {
   PagingInfo,
   ResultsPerPage,
   Paging,
-  Sorting,
   WithSearch,
-  Result
 } from "@elastic/react-search-ui";
 import { Layout } from "@elastic/react-search-ui-views";
 import "@elastic/react-search-ui-views/lib/styles/styles.css";
@@ -56,11 +55,11 @@ const omitFields = (result, fieldsToRemove) => {
 
 export default function App() {
 
-  const [auxConfig, setConfig] = useState(config)
+  const [auxConfig, setConfig] = useState(config);
   const [selectedValue, setValue] = useState("Title");
+  const [viewDetails, setViewDetials] = useState(false);
 
   useEffect(() => {
-    console.log("AAAA")
     console.log(auxConfig)
   },[auxConfig]);
 
@@ -75,7 +74,11 @@ export default function App() {
       autocompleteQuery: buildAutocompleteQueryConfig(selector),
       apiConnector: connector,
       alwaysSearchOnInitialLoad: true})
-};
+  };
+
+  const viewDetailsClick = (value) => (
+    setViewDetials(value)
+  )
 
 
   return (
@@ -91,11 +94,11 @@ export default function App() {
                     <>
                       <button>Inicio</button>
                       <select onChange={(e) => changeConfig(e.target.value)} name="cars" id="cars" value={selectedValue}> 
-                      <option value="default">Por defecto</option>
-                      <option value="author">Autor</option>
-                      <option value="name">Título</option>
-                      <option value="isbn">ISBN</option>
-                      <option value="synopsis">Descripción</option>
+                        <option value="default">Por defecto</option>
+                        <option value="author">Autor</option>
+                        <option value="name">Título</option>
+                        <option value="isbn">ISBN</option>
+                        <option value="synopsis">Descripción</option>
                     </select>
                       <div className="sui-search-box__wrapper">
                         <input
@@ -116,7 +119,6 @@ export default function App() {
                   sideContent={
                     <div>
                       <ClearFilters></ClearFilters>
-
                       <Facet field="category.raw" label="Categorias" view={MultiCheckboxFacet} />
                       <Facet field="cost" label="Precio" view={MultiCheckboxFacet} />
                       <Facet field="pages" label="Páginas" view={MultiCheckboxFacet} />
@@ -126,17 +128,30 @@ export default function App() {
                   bodyContent={
                     <Results
                     resultView={({ result }) => {
-                      return (
-                        <div className = "grid-container">
-                          <img className="cover" src={result.cover.raw}></img>
-                          <div className="info">
-                            <h1>{result.name.raw}</h1>
-                            <h2>{result.author.raw}</h2>
-                            <p className="basic">{result.synopsis.raw.slice(0, 500)}{result.synopsis.raw.length > 500 && '...'}</p>
-                            <p className="p-cost">{result.cost.raw} €</p>
+                      if (viewDetails == false) {
+                        return (
+                          <div className="grid-container" onClick={() => viewDetailsClick(true)}>
+                            <img className="cover" src={result.cover.raw} alt="Cover" />
+                            <div className="info">
+                              <h1>{result.name.raw}</h1>
+                              <h2>{result.author.raw}</h2>
+                              <p className="basic">
+                                {result.synopsis.raw.slice(0, 500)}
+                                {result.synopsis.raw.length > 500 && '...'}
+                              </p>
+                              <p className="p-cost">{result.cost.raw} €</p>
+                            </div>
                           </div>
-                        </div>
-                      );
+                        );
+                      } else {
+                        return <Details title={result.name.raw}
+                          authors={result.author}
+                          cover={result.cover.raw}
+                          sinopsis={result.synopsis.raw}
+                          categories={result.category.raw}
+                          cost={result.cost.raw}
+                          onClick={() => viewDetailsClick(true)} />;
+                      }
                     }}
                     />
                   }
