@@ -3,8 +3,10 @@ import ElasticsearchAPIConnector from "@elastic/search-ui-elasticsearch-connecto
 import ClearFilters from "./clear";
 import { useEffect, useState } from "react";
 import "./books.css"
-import { BooleanFacet, MultiCheckboxFacet, SingleLinksFacet, SingleSelectFacet } from "@elastic/react-search-ui-views";
+import { MultiCheckboxFacet} from "@elastic/react-search-ui-views";
 import Details from "./Details";
+import { useNavigate } from "react-router-dom";
+
 
 import {
   ErrorBoundary,
@@ -24,9 +26,7 @@ import {
   buildAutocompleteQueryConfig,
   buildFacetConfigFromConfig,
   buildSearchOptionsFromConfig,
-  buildSortOptionsFromConfig,
   getConfig,
-  getFacetFields
 } from "./config/config-helper";
 
 const { hostIdentifier, searchKey, endpointBase, engineName } = getConfig();
@@ -57,7 +57,7 @@ export default function App() {
 
   const [auxConfig, setConfig] = useState(config);
   const [selectedValue, setValue] = useState("Title");
-  const [viewDetails, setViewDetials] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     console.log(auxConfig)
@@ -76,10 +76,6 @@ export default function App() {
       alwaysSearchOnInitialLoad: true})
   };
 
-  const viewDetailsClick = (value) => (
-    setViewDetials(value)
-  )
-
 
   return (
     <SearchProvider id="search-provider" config={auxConfig}>
@@ -91,6 +87,7 @@ export default function App() {
                 <Layout
                 
                   header={<SearchBox inputView={({ getAutocomplete, getInputProps, getButtonProps }) => (
+
                     <>
                       <button>Inicio</button>
                       <select onChange={(e) => changeConfig(e.target.value)} name="cars" id="cars" value={selectedValue}> 
@@ -128,9 +125,8 @@ export default function App() {
                   bodyContent={
                     <Results
                     resultView={({ result }) => {
-                      if (viewDetails == false) {
                         return (
-                          <div className="grid-container" onClick={() => viewDetailsClick(true)}>
+                          <div className="grid-container" onClick={() => navigate("/viewDetails", { state: result })}>
                             <img className="cover" src={result.cover.raw} alt="Cover" />
                             <div className="info">
                               <h1>{result.name.raw}</h1>
@@ -143,15 +139,6 @@ export default function App() {
                             </div>
                           </div>
                         );
-                      } else {
-                        return <Details title={result.name.raw}
-                          authors={result.author}
-                          cover={result.cover.raw}
-                          sinopsis={result.synopsis.raw}
-                          categories={result.category.raw}
-                          cost={result.cost.raw}
-                          onClick={() => viewDetailsClick(true)} />;
-                      }
                     }}
                     />
                   }

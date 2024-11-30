@@ -26,7 +26,7 @@
   }
   
   
-  #LaCasaDelLibro {
+  #LibreriaPaz {
     position: absolute; /* Permite posicionarlo dentro de su contenedor relativo */
     bottom: 0; /* Lo mueve completamente hacia abajo */
     right: 0; /* Lo mueve completamente hacia la izquierda */
@@ -43,12 +43,15 @@
   }
   
   
-  #LaCasaDelLibro:hover {
+  #LibreriaPaz:hover {
     border-width: 3px; /* Aumenta el borde a 4px */
     background: linear-gradient(180deg, #5583EE,  #41D8DD);
   }
   
   #PlanetaLibros {
+    position: absolute; /* Permite posicionarlo dentro de su contenedor relativo */
+    bottom: 0; /* Lo mueve completamente hacia abajo */
+    right: 0; /* Lo mueve completamente hacia la izquierda */
     background: linear-gradient(90deg, #6DE195, #C4E759);
     height: 30px;
     width: 120px;
@@ -73,6 +76,9 @@
   }
   
   #BuscaLibre {
+    position: absolute; /* Permite posicionarlo dentro de su contenedor relativo */
+    bottom: 0; /* Lo mueve completamente hacia abajo */
+    right: 0; /* Lo mueve completamente hacia la izquierda */
     background: linear-gradient(90deg, #F5CCF6, #F1EEF9);
     height: 30px;
     width: 120px;
