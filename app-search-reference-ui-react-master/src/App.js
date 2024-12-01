@@ -41,6 +41,10 @@ const config = {
     ...buildSearchOptionsFromConfig()
   },
   autocompleteQuery: buildAutocompleteQueryConfig(),
+  searchQuery: {
+    facets: buildFacetConfigFromConfig(),
+    ...buildSearchOptionsFromConfig("default")
+  },
   apiConnector: connector,
   alwaysSearchOnInitialLoad: true
 };
@@ -56,7 +60,7 @@ const omitFields = (result, fieldsToRemove) => {
 export default function App() {
 
   const [auxConfig, setConfig] = useState(config);
-  const [selectedValue, setValue] = useState("Title");
+  const [selectedValue, setValue] = useState("default");
   const navigate = useNavigate();
 
   useEffect(() => {

@@ -45,8 +45,9 @@ class ByscalibreSpider(CrawlSpider):
         for cat in item['category']:
             if cat.strip() not in self.cats:
                 self.cats.append(cat.strip())
-                print("LISTA DE CATEGORIAS: ", self.cats)
-        self.file.write(str(self.cats))
+                self.file.write(str(cat.strip()))
+                self.file.write('\n')
+        
         item['isbn'] = response.css('div#metadata-isbn13::text').get()
         item['pages'] = response.css('div[id="metadata-número páginas"]::text').get()
         item['synopsis'] = response.css('span#texto-descripcion *::text').getall()
