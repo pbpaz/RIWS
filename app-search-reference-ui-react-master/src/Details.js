@@ -50,6 +50,15 @@ const Details = () => {
                 </strong>
               ))}
             </div>
+            <div>
+              <a>Editorial: {result.editorial.raw}</a>
+            </div>
+            <div>
+              <a>{result.isbn.raw}</a>
+            </div>
+            <div>
+              <a>Nº de páginas: {result.pages.raw}</a>
+            </div>
           </div>
           <div className="SinopsisContainer">
             <h5>{result.synopsis.raw}</h5>
