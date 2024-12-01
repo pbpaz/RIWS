@@ -5,11 +5,11 @@ es = Elasticsearch(hosts=["http://localhost:9200"])
 
 index_name = "books"
 
-with open ('../books_buscalibre_parsed.json', "r", encoding="utf-8") as file:
+with open ('../data/books_buscalibre_parsed.json', "r", encoding="utf-8") as file:
     buscalibre = json.load(file)
-with open ('../books_paz_parsed.json', "r", encoding="utf-8") as file:
+with open ('../data/books_paz_parsed.json', "r", encoding="utf-8") as file:
     paz = json.load(file)
-with open ('../books_planeta_parsed.json', "r", encoding="utf-8") as file:
+with open ('../data/books_planeta_parsed.json', "r", encoding="utf-8") as file:
     planeta = json.load(file)
 
 books = buscalibre + paz + planeta
