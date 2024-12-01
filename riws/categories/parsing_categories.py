@@ -1,6 +1,6 @@
 import json
 
-with open("../books_data_paz.json", "r", encoding="utf-8") as file:
+with open("../data/books_data_paz.json", "r", encoding="utf-8") as file:
     paz_data = json.load(file)
 
 with open("categories_dict.json", 'r', encoding='utf-8') as file:
@@ -27,5 +27,5 @@ for element in paz_data:
 
     element["category"] = list(unique_categories)
 
-with open("../books_paz_parsed.json", "w",encoding='utf-8') as file:
+with open("../data/books_pazaaaaa_parsed.json", "w",encoding='utf-8') as file:
     json.dump(paz_data, file, indent=4, ensure_ascii=False)
